@@ -9,6 +9,7 @@
 		{#- Atom and JSON feeds included by default #}
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}">
+		<script async src="https://tracking.scaledcode.com/script.js" data-website-id="15b1fa76-4844-44fb-8285-5506d1b39686"></script>
 
 		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
 		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
@@ -36,23 +37,43 @@
 	<body>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-		<header>
-			<a href="/" class="home-link">{{ metadata.title }}</a>
+		<header class="main-header">
+			<h1 class="page-title">{{ metadata.title }}</h1>
+			<br/>
 
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
-			<nav>
+			{# <nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav">
 				{%- for entry in collections.all | eleventyNavigation %}
 					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
 				{%- endfor %}
 				</ul>
-			</nav>
+			</nav> #}
 		</header>
 
-		<main id="skip">
+
+
+		<main id="skip" class="content">
 			{{ content | safe }}
 		</main>
+
+		<aside class="sidebar">
+			Written By: Kyle Carter
+
+			<div class="side-nav">
+				<ul class="side-nav-list">
+					{# <li class="side-nav-item"><a href="/">Home</a></li>
+					<li class="side-nav-item"><a href="/">Archive</a></li>
+					<li class="side-nav-item"><a href="/">About</a></li> #}
+					{%- for entry in collections.all | eleventyNavigation %}
+					<li class="side-nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
+				{%- endfor %}
+					<li class="side-nav-item"><a href="/feed/feed.xml">RSS Feed</a></li>
+				</ul>
+			</div>
+
+		</aside>
 
 		<footer></footer>
 
