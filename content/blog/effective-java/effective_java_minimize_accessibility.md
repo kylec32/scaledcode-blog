@@ -1,0 +1,36 @@
+---
+title: Effective Java! Minimize the Accessibility of Classes and Member
+description: A dive into chapter fifteen of Effective Java
+date: 2020-03-03
+tags:
+  - java
+  - effective java review
+  - design
+  - architecture
+---
+
+Today we begin a new section of _Effective Java_. This new section promises to teach us all about how to make world-class classes inside of our applications. We start off this education with a look at a core tenant of object-oriented programming, encapsulation. Through my programming education this has definitely been one of the things beaten through to me and likely has been something that many have been exposed to as well. Even so, let's dig a little bit into why this is something to strive for as well as the methods to achieve it.
+
+The core reason that encapsulation is seen as such a benefit is because encapsulation enables decoupling of parts of the system. And why is decoupling good? It allows independent development of pieces of the application, reuse of components, and other great benefits. When a component only exposes a well thought out interface and all of it's internal details are hidden, this allows that component's implementation to grow independently of the rest of the application. This benefit may be experienced by being able to isolate and fix a performance issue in a class without having to change any of the components that use it. It could also be seen when you are able to reuse some functionality in another part of the system or in a different system entirely. There are many ways to experience these benefits. Another reason that I like to keep things inaccessible as possible is it improves the experience of using the components. If my IDE is only suggesting things that are accessible to me, and the only things accessible to me are the things that are of use to me, I'm not distracted by other classes, methods, and members that aren't actually usable to me and are just noise. The core tenet being, make each class and member as inaccessible as possible. So let's look at some of the tools that Java gives us to accomplish this.
+
+Let's begin with classes. With the majority of the classes we are dealing with (top-level classes) we have two choices. Public classes and package-private classes. Public are signified by the `public` keyword and package private classes are signified by the lack of an accessibility keyword (I have seen this confuse people in the past and I do think the language designers could have made this a little clearer). A public class allows anyone to use it and a package-private class only is accessible from other classes within the package it lives. If you find that you are making classes that are package-private but is only used by one other class in the package you may want to consider making this a private static class within the one class that uses it. This is an option that I think sometimes gets overlooked in our designs but can lead to a cleaner system. 
+
+For member variables/functions we have a few more options (from most accessible to least accessible):
+* `public` - accessible from anywhere
+* `protected` - accessible from other classes in the package as well as classes that extend the class.
+* `package-private` (sometimes called _default_) - which, just like in the class example, is accessible from other classes in the package.
+* `private` - only accessible to that class. 
+
+So let's go through the thought process encouraged for class design. The pitch of _Effective Java_ is to start with everything `private` and only increase the access when you need to one step the hierarchy at a time. This seems rather tedious but I think the core idea is very solid and as you get used to this process you can go through this process quickly and largely in your head. The book also warns that once you make something `protected` you have made a contract for life with the users of your class and thus that increase in accessibility should be particularly justified. While this is definitely true I find myself only using protected when I'm building a class for extension and so this doesn't seem like a tradeoff in my mind but exactly what I'm after. 
+
+Functions in your class may also have additional restrictions put on them that limits your choices with setting accessibility. This largely comes down to if you extend a class or interface you cannot make your functions less accessible than the class/interface you extended from. This is a good thing though as it allows users of the class to use all subtypes of a class in the places of it's super-type. A note about this is that methods defined in interfaces (ignoring `default` methods) are automatically `public` so that even decreases your choices further.
+
+One item that can come up as a concern, but that is fairly easily overcome, is what about testing? If my test is in another class how can I call the methods in the implementation class to make sure they are working correctly? Well there are two ways that I see you could solve this. Your public API is the thing that really matters, so often, just testing through the public API can get you the confidence you need. And secondly, you can make your methods or member variables package-private and, since you can put your test in the same package as your implementation class, your test can access the more inaccessible items of your class without forcing you to put them in your package's exported API.
+
+Related to the above of starting off with private for everything and then only increasing the accessibility when required is that member variables should rarely be directly accessible outside of the class. The problems can range from lack of thread safety to simply inconvenience when changing code but they all come down to giving up your control over how your internal state is managed. The one exception to this is a `static final` field to an immutable object that is part of the abstraction of the class. If the reference is to a mutable object (including an array) this is not appropriate. 
+
+Finally we come to what newer features of the JVM give us with controlling our accessibility, that being the module system. The Java module system allows a module (a jar basically) to determine which packages it will export outside of itself. Thus, a consumer of this module will only be allowed to access `public` and `protected` components in the _exported_ packages. This implicitly creates basically two new access levels which are non-exported `public` and `protected` components that can be consumed cross-package within a module but not outside of it. It feels somewhat analogous to Kotlin's `internal` access level. 
+
+Do note that, due to backward compatibility, the module access control is largely advisory and can easily be worked around by an integrating component. Currently the only part of the system that doesn't allow you to go around the module system is the JDK itself. It is also an investment to convert one's system to use the module system so time will tell how much widespread usage of the module system occurs outside of the JDK. 
+
+So hopefully this was not too shocking of information in today's post and mainly just a refresher on what our options are as it relates to access control in Java as well as why it is beneficial to us.  
