@@ -7,7 +7,7 @@ tags:
   - effective java review
   - design
   - architecture
-  - inheritance
+  - interfaces
 ---
 
 One of the super powers of object-oriented programming is the ability for multiple implementations of the same type. This can allow cleaner code that allows powerful uses. Java provides two main mechanisms in order to accomplish this `interfaces` and `abstract` classes. The main difference between the two is that in order to extend an abstract class, an implementing class must become a subclass of that abstract class. In order to implement an interface, an implementing class merely has to meet the general contract of the class. 

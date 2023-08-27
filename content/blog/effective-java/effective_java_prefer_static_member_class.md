@@ -1,0 +1,22 @@
+---
+title: Effective Java! Favor Static Members Classes over Non-Static
+description: A dive into chapter 24 of Effective Java
+date: 2020-05-12
+tags:
+  - java
+  - effective java review
+  - design
+  - architecture
+---
+
+Java provides four ways to declare a class within another class: _static member class_, _nonstatic member classes_, _anonymous classes_, and _local classes_. Each type has it's benefits and it's downsides so understanding the correct use cases for each type will help us use the right one in our code. Let's go over each type.
+
+_Static member class_: This is the simplest of the nested class options. This ends up being basically a regular class that happens to be inside of a different class. It can be retrieved without already having a reference to the enclosing class. These classes are a static member of the enclosing class and obey the same  visibility rules as other members of the class. A common use for this type of class is as a helper to the enclosing class. For example let's consider a `Calculator` class. Perhaps it would have an `Operation` nested class that includes a number of constants that define different operations that could be performed in the calculator. These would be accessed as follows `Calculator.Operation.PLUS` or `Calculator.Operation.MINUS`. This creates a nice organization for accessing these helper classes. Another place that you will see these static nested classes being used is with the Builder pattern where the builder object is a nested class inside of the class being built. 
+
+_Nonstatic member class_: The only difference between the declaration between a static nested class and a nonstatic nested class is the word `static` but this one word difference has quite a difference between the two types. Each instance of the enclosing class has an _implicit_ connection to the enclosing class in this case and has access to the enclosing class's members. This method cannot be used if the nested class should be able to exist outside the context the enclosing class as this is impossible in a nonstatic nested class. The connection between the enclosing class and the nested class gets created on the enclosing class creation. This connection takes time to create and also takes up space. A use case for this type of nested class is when using the _Adapter_ pattern where it allows the state of the class to be viewed as an unrelated type. This is a great use case as this method allows access to that internal state while still allowing the creation of a new class. We can see these uses in the wild with `Map`'s `keyset`, `entryset`, and `values` as well as `Set` and `List`'s `iterator`. So nonstatic nested member classes seem to have a lot of power, what are the downsides? As mentioned above, the connection of the enclosing and the nested class take time to create as well as memory on the heap. If you don't need the benefits of the the nonstatic type then there is no need to pay this price. It is even worse in that it becomes much easier to create memory leaks with a nonstatic nested class as the nested class can hold a reference to the enclosing class that can lead to a class that should be eligible for garbage collection from being collected. 
+
+_Anonymous class_: Anonymous classes come with a number of limitations. You can't instantiate them other than at the point of declaration, you can't perform `instanceof` inquiries of the class, or do anything else that requires a class name. Anonymous classes also can't implement multiple interfaces nor extend a class and implement an interface at the same time. Before lambda's came around in Java 8 anonymous classes were the preferred way of creating small objects on the fly, now lambda's are the preferred method. 
+
+_Local class_: This is the least used method and one I personally have never used. These can be declared basically anywhere where a local variable can be declared. Local classes can have names, can be used repeatedly, and can reference the enclosing class's members. These should be kept short in order to avoid harming readability.
+
+So as we can see each type has it's own reason for existing and have their place in the world. A main take away from this post is the difference between the static and nonstatic member nested class. When in doubt start off with a static class as they are safer and only once you absolutely need the functionality of the nonstatic nested class should you use them. 
