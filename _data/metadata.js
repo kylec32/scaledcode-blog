@@ -1,11 +1,11 @@
 module.exports = {
 	title: "Scaled Code",
-	url: "https://scaledcode.com.com/",
+	url: "https://blog.scaledcode.com/",
 	language: "en",
-	description: "I am writing about my experiences as a naval navel-gazer.",
+	description: "I am writing about my experiences as a software engineer.",
 	author: {
 		name: "Kyle Carter",
 		email: "kyle@scaledcode.com",
-		url: "https://scaledcode.com/about-me/"
+		url: "https://blog.scaledcode.com/about-me/"
 	}
 }
