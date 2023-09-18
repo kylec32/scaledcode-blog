@@ -2,6 +2,7 @@
 title: Effective Java! Include Failure-Capture Information in Detail Messages
 description: A dive into chapter 75 of Effective Java
 date: 2021-09-28
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*2YlZDMSIW0p3DGY2
 tags:
   - java
   - effective java review

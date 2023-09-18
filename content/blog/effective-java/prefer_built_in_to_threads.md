@@ -2,6 +2,7 @@
 title: Effective Java! Prefer Executors, Tasks, and Streams to Threads
 description: A dive into chapter 80 of Effective Java
 date: 2021-11-12
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*mNsziXxNlmBWPCka
 tags:
   - java
   - effective java review

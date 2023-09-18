@@ -2,6 +2,7 @@
 title: Effective Java! Prefer Alternatives To Java Serialization
 description: A dive into chapter 85 of Effective Java
 date: 2022-01-04
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*eoMibSqGpKWbOOiN
 tags:
   - java
   - effective java review

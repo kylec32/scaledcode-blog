@@ -2,6 +2,7 @@
 title: Effective Java! Use Checked Exceptions for Recoverable Conditions
 description: A dive into chapter 70 of Effective Java
 date: 2021-08-10
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*gw_JmOVMzcNfSgB3
 tags:
   - java
   - effective java review

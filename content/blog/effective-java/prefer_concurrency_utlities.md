@@ -2,6 +2,7 @@
 title: Effective Java! Prefer Concurrency Utilities Over wait and notify
 description: A dive into chapter 81 of Effective Java
 date: 2021-11-19
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*eSNNU57TfcLdDtZV
 tags:
   - java
   - effective java review

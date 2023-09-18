@@ -2,6 +2,7 @@
 title: Effective Java! Strive for Failure Atomicity 
 description: A dive into chapter 76 of Effective Java
 date: 2021-10-10
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*5bHlDGwp4Oxz4V4l
 tags:
   - java
   - effective java review

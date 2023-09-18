@@ -2,6 +2,7 @@
 title: Effective Java! Synchronize Access to Shared Mutable Data
 description: A dive into chapter 78 of Effective Java
 date: 2021-11-02
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*hUbWYoYeNQVhh14M
 tags:
   - java
   - effective java review

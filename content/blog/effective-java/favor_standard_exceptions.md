@@ -2,6 +2,7 @@
 title: Effective Java! Favor The Use of Standard Exceptions
 description: A dive into chapter 72 of Effective Java
 date: 2021-08-23
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*8HIK0HW_VQAvGWNC
 tags:
   - java
   - effective java review

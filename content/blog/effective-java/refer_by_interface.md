@@ -2,6 +2,7 @@
 title: Effective Java! Refer to Objects By Their Interfaces
 description: A dive into chapter 64 of Effective Java
 date: 2021-06-02
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*RoY8J_lkTbAGk9sw
 tags:
   - java
   - effective java review

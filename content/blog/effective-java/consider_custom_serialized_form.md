@@ -2,6 +2,7 @@
 title: Effective Java! Consider Using a Custom Serialized Form
 description: A dive into chapter 87 of Effective Java
 date: 2022-01-21
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*1Jt9f8hU1z_MBabt
 tags:
   - java
   - effective java review

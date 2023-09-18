@@ -2,6 +2,7 @@
 title: Effective Java! Implement Serializable With Great Caution
 description: A dive into chapter 86 of Effective Java
 date: 2022-01-18
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*1big_286k5VX_LPp
 tags:
   - java
   - effective java review

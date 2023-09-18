@@ -2,6 +2,7 @@
 title: Effective Java! Document All Exceptions Thrown By Each Method
 description: A dive into chapter 74 of Effective Java
 date: 2021-09-09
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*PoHOhaiKpDG8TSTU
 tags:
   - java
   - effective java review

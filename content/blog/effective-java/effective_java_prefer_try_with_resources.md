@@ -2,6 +2,7 @@
 title: Effective Java! Prefer try-with-resources
 description: A dive into chapter seven of Effective Java
 date: 2019-11-12
+hero_image: https://cdn-images-1.medium.com/max/800/0*q9p7Jb3mHVdSrq3j
 tags:
   - java
   - effective java review

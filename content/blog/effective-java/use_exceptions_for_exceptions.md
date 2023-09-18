@@ -2,6 +2,7 @@
 title: Effective Java! Use Exceptions for Only Exceptional Circumstances
 description: A dive into chapter 69 of Effective Java
 date: 2021-07-27
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*J7v943-XP2mbi1Gh
 tags:
   - java
   - effective java review

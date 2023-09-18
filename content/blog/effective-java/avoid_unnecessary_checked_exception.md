@@ -2,6 +2,7 @@
 title: Effective Java! Avoid Unnecessary Use of Checked Exceptions
 description: A dive into chapter 71 of Effective Java
 date: 2021-08-16
+hero_image: https://miro.medium.com/v2/resize:fit:720/0*a-k_SFPIkFnxs5vo
 tags:
   - java
   - effective java review
