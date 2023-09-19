@@ -2,7 +2,7 @@
 title: Effective Java! For Instance Control, Prefer Enum types to readResolve
 description: A dive into chapter 89 of Effective Java
 date: 2022-02-16
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*Uz4XIDlV2S2rpViO
+hero_image: https://miro.medium.com/v2/resize:fit/0*Uz4XIDlV2S2rpViO
 tags:
   - java
   - effective java review

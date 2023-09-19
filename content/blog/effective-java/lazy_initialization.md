@@ -2,7 +2,7 @@
 title: Effective Java! Use Lazy Initialization Judiciously
 description: A dive into chapter 83 of Effective Java
 date: 2021-12-08
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*BOQYdq5ATQxR4dsQ
+hero_image: https://miro.medium.com/v2/resize:fit/0*BOQYdq5ATQxR4dsQ
 tags:
   - java
   - effective java review

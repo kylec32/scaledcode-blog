@@ -2,7 +2,7 @@
 title: Effective Java! Don't Depend on the Thread Scheduler
 description: A dive into chapter 84 of Effective Java
 date: 2021-12-16
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*U7wZtF9ItUypmLuQ
+hero_image: https://miro.medium.com/v2/resize:fit/0*U7wZtF9ItUypmLuQ
 tags:
   - java
   - effective java review

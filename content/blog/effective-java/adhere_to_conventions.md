@@ -2,7 +2,7 @@
 title: Effective Java! Adhere to Generally Accepted Naming Conventions
 description: A dive into chapter 68 of Effective Java
 date: 2021-07-18
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*Lpe_ADkuzL_xao8Z
+hero_image: https://miro.medium.com/v2/resize:fit/0*Lpe_ADkuzL_xao8Z
 tags:
   - java
   - effective java review

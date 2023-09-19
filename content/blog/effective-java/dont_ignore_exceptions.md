@@ -2,7 +2,7 @@
 title: Effective Java! Don't Ignore Exceptions
 description: A dive into chapter 77 of Effective Java
 date: 2021-10-26
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*fpmo4S6WFfrmUmnc
+hero_image: https://miro.medium.com/v2/resize:fit/0*fpmo4S6WFfrmUmnc
 tags:
   - java
   - effective java review

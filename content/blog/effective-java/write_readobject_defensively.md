@@ -2,7 +2,7 @@
 title: Effective Java! Write readObject Methods Defensively
 description: A dive into chapter 88 of Effective Java
 date: 2022-02-01
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*SfYAspwuj1lUCZZY
+hero_image: https://miro.medium.com/v2/0*SfYAspwuj1lUCZZY
 tags:
   - java
   - effective java review

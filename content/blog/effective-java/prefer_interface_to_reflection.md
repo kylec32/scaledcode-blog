@@ -1,7 +1,7 @@
 ---
 title: Effective Java! Prefer Interfaces To Reflection
 description: A dive into chapter 65 of Effective Java
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*4LbF3iLpr4vyzzNK
+hero_image: https://miro.medium.com/v2/resize:fit/0*4LbF3iLpr4vyzzNK
 date: 2021-06-16
 tags:
   - java

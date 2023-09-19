@@ -2,7 +2,7 @@
 title: Effective Java! Document Thread Safety
 description: A dive into chapter 82 of Effective Java
 date: 2021-12-01
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*v1Hyhrqd2UUg5Bwt
+hero_image: https://miro.medium.com/v2/resize:fit/0*v1Hyhrqd2UUg5Bwt
 tags:
   - java
   - effective java review

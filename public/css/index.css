@@ -169,6 +169,12 @@ header {
 	background: #f5f8fa;
 }
 
+.hero-image {
+	background-size: cover;
+	background-position: center center;
+	height: 30vh;
+}
+
 .home-link {
 	font-size: 1em; /* 16px /16 */
 	font-weight: 700;

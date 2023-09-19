@@ -2,7 +2,7 @@
 title: Effective Java! Consider Serialization Proxies Instead of Serialized Instances
 description: A dive into chapter 90 of Effective Java
 date: 2022-02-21
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*NZBDSqTrgosU5lHN
+hero_image: https://miro.medium.com/v2/resize:fit/0*NZBDSqTrgosU5lHN
 tags:
   - java
   - effective java review

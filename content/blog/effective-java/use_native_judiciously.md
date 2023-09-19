@@ -2,7 +2,7 @@
 title: Effective Java! Use Native Methods Judiciously
 description: A dive into chapter 66 of Effective Java
 date: 2021-06-24
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*tooSZnf2IX1q_WB-
+hero_image: https://miro.medium.com/v2/0*tooSZnf2IX1q_WB-
 tags:
   - java
   - effective java review

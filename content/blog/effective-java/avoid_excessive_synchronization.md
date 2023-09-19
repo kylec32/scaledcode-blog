@@ -2,7 +2,7 @@
 title: Effective Java! Avoid Excessive Synchronization
 description: A dive into chapter 79 of Effective Java
 date: 2021-11-07
-hero_image: https://miro.medium.com/v2/resize:fit:720/0*f7PBmo0Ey1vWCTuW
+hero_image: https://miro.medium.com/v2/resize:fit/0*f7PBmo0Ey1vWCTuW
 tags:
   - java
   - effective java review
