@@ -12,7 +12,7 @@ tags:
   - specification
 ---
 
-I have [written before](https://blog.scaledcode.com/blog/wild-word-unique-id/) about UUIDs and other unique identifiers. As a reminder UUIDs are 128-bit identifiers that strive for unique identifier generation without requiring the generation to be done in a centralized location. The specification for UUIDs was written in 2005 and is defined in [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122). This specification has served the industry fairly well. Even so there have been many other mechanisms for generating unique identifiers to try to make up for the shortcomings of the original specification. Some of these shortcomings are the following:
+I have [written before](https://blog.scaledcode.com/blog/wild-world-unique-id/) about UUIDs and other unique identifiers. As a reminder UUIDs are 128-bit identifiers that strive for unique identifier generation without requiring the generation to be done in a centralized location. The specification for UUIDs was written in 2005 and is defined in [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122). This specification has served the industry fairly well. Even so there have been many other mechanisms for generating unique identifiers to try to make up for the shortcomings of the original specification. Some of these shortcomings are the following:
 
 * Poor index locality of non-time-based UUIDs (such as v4) due to new IDs not being related to previously generated ids. This leads to negative performance impacts when using many common indexing data structures.
 * UUIDv1 use of a 100-nanosecond epoch is a unique and difficult to work with timestamp in many systems.
