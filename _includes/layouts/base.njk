@@ -9,7 +9,10 @@
 		{#- Atom and JSON feeds included by default #}
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}">
+		{% if runMode.productionMode %}
 		<script async src="https://tracking.scaledcode.com/script.js" data-website-id="15b1fa76-4844-44fb-8285-5506d1b39686"></script>
+		{% endif %}
+		
 
 		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
 		{#- <meta name="generator" content="{{ eleventy.generator }}"> #}
@@ -38,7 +41,10 @@
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
 {%- if hero_image %}
-		<header class="main-header hero-image" style="background-image: url('{{hero_image}}')">
+{# {% image '{{hero_image}}' %} #}
+		<header class="main-header hero-image" style="{{ hero_image | backgroundImage }}">
+			{# <header class="main-header hero-image" style="background-image: url('{{hero_image}}')"> #}
+			{# {% image "./exampleUptimeSpreadsheet.png", "Example spreadsheet with three columns, application, status, and last updated. There are five rows: excel, powerpoint, validator, word, visio" %} #}
 			<br/>
 
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
