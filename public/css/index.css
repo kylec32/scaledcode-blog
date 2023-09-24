@@ -157,6 +157,11 @@ code {
 	word-break: break-all;
 }
 
+.center-image {
+	display: block;
+    margin: 0 auto;
+}
+
 /* Header */
 header {
 	/* display: flex;

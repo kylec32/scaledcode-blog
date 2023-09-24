@@ -28,6 +28,7 @@ module.exports = eleventyConfig => {
 
 		// TODO loading=eager and fetchpriority=high
 		let imageAttributes = {
+			class: "center-image",
 			alt,
 			sizes,
 			loading: "lazy",
