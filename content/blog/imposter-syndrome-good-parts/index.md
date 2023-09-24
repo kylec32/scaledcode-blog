@@ -1,5 +1,5 @@
 ---
-title: Imposter Syndrome: The Good Parts
+title: Imposter Syndrome - The Good Parts
 description: A dive into some of the positives that can be recognized when we are presented with imposter syndrome.
 date: 2022-03-14
 hero_image: ./imposter_hero.jpg
