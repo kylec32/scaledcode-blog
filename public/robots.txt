@@ -1,2 +1,8 @@
 User-agent: *
 Disallow: /tags/
+
+User-Agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
