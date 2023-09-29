@@ -1,5 +1,5 @@
 ---
-title: Understanding The History of Dates and Years Through the Julian and Gregorian Calendars
+title: Understanding The Dates Through the Julian and Gregorian Calendars
 description: The interesting history of the Julian and Gregorian calendars and how it can affect developers in their work.
 date: 2022-09-12
 hero_image: ./calendar-hero.jpg
