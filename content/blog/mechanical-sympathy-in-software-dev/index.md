@@ -1,0 +1,26 @@
+---json
+{
+  "title": "Mechanical Sympathy in Software Development",
+  "description": "Modern software abstractions are great but that doesn't discredit the benefit of understanding what happens beneath those abstractions.",
+  "date": "2023-05-02",
+  "hero_image": "./mech-sympathy-hero.jpg",
+  "tags": [
+    "System Design",
+    "software development",
+    "Mechanical Sympathy",
+    "Software Architecture"
+  ]
+}
+---
+
+Modern software development spends the vast majority of its time at an extremely abstract level. Gone are the days of the majority of developers having to worry about registers, manual memory management, and pointers. This has undoubtedly led to an improved velocity of the creation of software. We can now spend more of our time focused on delivering value to the users of the software we are building rather than meeting the demands of the computer. Looking towards the future with the promise of AI assistance with tools such as GitHub Copilot, Chat GPT, and countless other tools on the horizon, the future seems to continue to be marching up the stack. That said, there are still benefits in understanding the details of how the internals work behind all the abstractions.
+
+A phrase I have always found interesting is that of "mechanical sympathy". It is said to have originated from British race car driver Jackie Stewart in his autobiography. Stewart was well known for his driving skills and ability to communicate with the crew working on his car. He believed that to become a great driver he would also need to have a deep understanding and appreciation of the mechanics and engineering behind the car. Through having this deep understanding he could communicate clearer with his team and use this knowledge when driving. While he may not work on the steering linkage between the tires and the body of the race car daily (or maybe even ever), having an understanding of how it works and the limitations it has could be used to push the car to the limit without going too far. This same concept can be applied to understanding the inner workings of the abstractions we use in our development process.
+
+Mechanical sympathy can take many forms in software development. This understanding can apply to the underlying hardware, system architecture, algorithms, etc. While understanding deeply how a CPU works, memory access happens, or how a sorting algorithm accomplishes its job is not needed to get started with programming it can level up your effectiveness. For example, by understanding how memory access works you can optimize your code for its strengths and weaknesses and reap performance improvements. This idea of being able to use this deeper internal knowledge to your benefit I have written about before in [my defense of the four-year degree](/blog/benefit-of-cs-degress/). Let's consider some of the benefits that we can hope to experience from peeling back the curtain from the abstractions we are building upon.
+
+Rarely do we write a bug-free piece of code or get it right the very first time. Whether it is errors in production or error messages as you are writing the original code it is a surety that you will run into errors during development. Often these errors can be obscure and hard to understand. While some error messages are just useless, many others may technically be informative but difficult to understand without knowing what is happening under the hood. This is originally how I learned about what I wrote in my [Kafka Avro serializer](/blog/kafka_avro_serializer_how/) post. Running into "missing magic byte" errors, even after understanding what it meant I was intrigued about how the rest of it worked. So after digging deeply into how it all worked I was able to have a clear understanding of how the serializer and deserializer worked. This knowledge paid dividends in the future as I, and those around me, continued to use Avro with Kafka. While it is not required to understand all the internals to use this technology, it is extremely useful.
+
+Another part of having a deep understanding of a technology and/or system is understanding its use cases. This not only means knowing what that technology is good at but, possibly more importantly, what it isn't good at. Everything has its tradeoffs and we often focus on only the positives but not on the cons. Understanding how the technology or patterns break can be the sign of an expert. For example, I have seen people tout the benefits of NoSQL databases or microservices and argue for their use even before knowing what the use case is. This blind commitment to a specific technology or pattern is doing a disservice to yourself and the software you are writing. I find that having a deeper understanding of how the pieces fit together within the abstractions of the technology you are using helps you understand its limitations.
+
+Gaining this mechanical sympathy with technologies largely comes down to experience and not being scared to dive into new technologies. You will not be able to become an expert in everything but understanding what parts of the system you could benefit from digging deeper and understanding at a core level is critical. This will take time so don't get frustrated on your pursuit. Having a desire and willingness to gain that knowledge is the first and most important step.
