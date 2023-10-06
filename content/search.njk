@@ -1,0 +1,27 @@
+---
+layout: layouts/home.njk
+eleventyNavigation:
+  key: Search
+  order: 4
+permalink: /search/
+---
+
+<div class="field">
+  <label for="searchField">Search</label>
+  <input type="search" placeholder="Search..." id="searchField" />
+</div>
+<ol id="searchResults">
+</ol>
+<div id="noResultsFound" style="display: none">
+  <p>No results found.</p>
+</div>
+
+{# <form action="https://www.google.co.uk/search" method="get" class="search">
+  <input type="hidden" name="q" id="q" value="site:https://blog.scaledcode.com">
+  <label for="search-str">Search<small></label>
+  <input type="text" name="q" id="search-str"></p>
+  <button type="submit" class="submit">Search with Google</button>
+</form> #}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elasticlunr/0.9.6/elasticlunr.min.js"></script>
+<script src="/js/search.js"></script>
