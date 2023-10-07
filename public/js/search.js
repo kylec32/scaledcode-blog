@@ -11,7 +11,6 @@
       });
 
       debounce(() => logAnalytics({'count': results.length, 'searchTerm': e.target.value}), 750);
-    // debounce(logAnalytics);
   
       resultsElement.innerHTML = "";
       results.splice(50);
@@ -49,9 +48,6 @@
     );
 
     const logAnalytics = (data) => {
-        console.log("Log analytics");
-        console.log(data);
-
         try {
             if (typeof umami != 'undefined') {
                 umami.track('search', data)
