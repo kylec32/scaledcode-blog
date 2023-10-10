@@ -15,7 +15,16 @@ layout: layouts/base.njk
 </ul>
 
 {{ content | safe }}
-
+<hr>
+<div id="ms-ad-717031598"></div> 
+<script> 
+  window.msAdsQueue.push(() => { 
+    window.pubCenterSdk.render({ 
+      adUnitId: "717031598", 
+      elementId: "ms-ad-717031598" 
+    }); 
+  }); 
+</script>
 {%- if collections.posts %}
 {%- set previousPost = collections.posts | getPreviousCollectionItem %}
 {%- set nextPost = collections.posts | getNextCollectionItem %}
