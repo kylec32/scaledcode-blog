@@ -2,7 +2,7 @@
 {
   "title": "Building a FIPS-140 Compliant HTTPD Server",
   "description": "A dive into how to setup a FIPS-140 compliant Apache HTTPD server in Linux. A missing guide if you will that I wish I would have found when I had to take this journey",
-  "date": "2023-10-23",
+  "date": "2023-10-21",
   "hero_image": "./fips.jpg",
   "tags": [
     "Compliance",
