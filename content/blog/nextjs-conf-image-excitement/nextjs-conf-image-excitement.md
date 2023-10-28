@@ -1,7 +1,7 @@
 ---json
 {
   "title": "The Next.js Conf Picture That Blew People's Minds",
-  "description": "Seeing a SQL statement in a React component has caught the internet's attention in both good and bad ways",
+  "description": "Seeing a SQL statement in a React component has caught the internet's attention in both good and bad ways. Let's discuss the different camps people have ended up in.",
   "date": "2023-10-28",
   "tags": [
     "frontend",
