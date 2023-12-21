@@ -13,7 +13,9 @@
 }
 ---
 
-Recently MicKinsey came out with an article titled "[Yes, you can measure software developer productivity](https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/yes-you-can-measure-software-developer-productivity)". After so much research by so many in software development including some of the biggest players such as Google, Meta, Microsoft, etc. McKinsey has come in and solved it for us. I of course am kidding. This piece is, unsurprisingly, just a marketing fluff piece aiming to drum up consultant engagements for them. Trying to get business is of course their right but to me, the hubris of this article is just too much. That said, there are things we can learn from their article.
+Recently MicKinsey came out with an article titled "[Yes, you can measure software developer productivity](https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/yes-you-can-measure-software-developer-productivity)". After so much research by so many in software development including some of the biggest players such as Google, Meta, Microsoft, etc. McKinsey has come in and solved it for us.
+
+I of course am kidding. This piece is, unsurprisingly, just a marketing fluff piece aiming to drum up consultant engagements for them. Trying to get business is of course their right but to me, the hubris of this article is just too much. That said, there are things we can learn from their article.
 
 ### The Good
 
