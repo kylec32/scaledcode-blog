@@ -1,0 +1,20 @@
+---json
+{
+  "title": "Choosing Technology that is Right, Not Cool",
+  "description": "Developers love to play with the latest technology, however we must remember that it is not cool that pays the salary but delivering value to customers.",
+  "date": "2017-08-05",
+  "tags": [
+    "architecture",
+    "hype",
+    "elixir"
+  ]
+}
+---
+
+A few weeks back my work had a mini internal conference. The idea behind this event was giving yourself and colleagues an opportunity to give a short talk about something they are passionate about. This was a great idea and I think was very successful. Working in such a fast moving field there is no way to stay on top of everything and by leveraging the whole departments knowledge you could attend the sessions that were interesting to you and get a basic understanding about what was being talked about. This also is a great opportunity for people doing the sessions to cement the knowledge they were talking about and really internalize it. 
+
+One of the session that I attended was on [Elixir](https://elixir-lang.org/) along with the [Phoenix framework](http://phoenixframework.org/). I had only a passing knowledge of what these two were so I was very interested in learning more. This particular developer used to be on my team so I knew he wouldn't be lacking for passion and he didn't disappoint. The problem I saw was that it seemed like this passion was blinding to him. He pitched the benefits of the [Erlang](http://www.erlang.org/) VM which Elixir runs on. This was a very valid point as you would want to be sure that what you were building on was a solid foundation. He then started name dropping companies that use it to which I had to ask if they were using Erlang or Elixir. He answered that it was Erlang and not Elixir. Again this was fine as a solid foundation is critical but he claimed that it wouldn't be any different if they were using Elixir since it was the same foundation. I think this was a bit of a stretch as I could claim that since tons of companies build on the JVM that you should use [Ceylon](https://ceylon-lang.org/). This was the first case where I think he let his passion overcome logic. This was quite unfortunate as I think there is power in showing that you understand the limitations of what you are talking about. 
+
+The final part of his pitch was discussing how disappointed he was in the company for not considering moving to Elixir especially for one of our new products we are coming out with that relies heavily on [WebSockets](https://en.wikipedia.org/wiki/WebSocket) for realtime multi-user use. We have recently decided to change languages from a ColdFusion based system to Java and part of the reason we chose Java was because of it's community support and it runs on the JVM which our ColdFusion engine also runs on allowing us to more effectively [strangle](https://www.martinfowler.com/bliki/StranglerApplication.html) our old system. Asking him how we could address not being on the JVM he just said that the benefits would outweigh not being able to refactor. I can't really accept that. Nothing he showed is not possible in Java, it may be easier, it may be nicer, but it is not impossible. 
+
+This gets to the point I wanted to make. As technologists we love the newest, sexiest technologies. For side projects and fun I am all for using these technologies. You want to have fun, there are lot of models and techniques that can be learned by this and applied elsewhere. However, when it comes to commercial products, products with real customers (which could be a side project), what trumps all is delivering value. We may want to use the cool technology but if it isn't going to help increase the quality of what you deliver by allowing you deliver more, better, easier, faster, etc. you are doing your customers a disservice. My challenge for anyone reading as well as a challenge I will take myself is when wanting to use a new technology ask yourself if this is going to be a good decision that is being made to provide value to your customers and fits within your current architecture.

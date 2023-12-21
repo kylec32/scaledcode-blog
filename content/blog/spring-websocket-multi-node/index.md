@@ -1,0 +1,22 @@
+---json
+{
+  "title": "Creating a Multi-Node Websocket Service with Spring",
+  "description": "Walk through of how to get a multi-node Spring STOMP websocket service started.",
+  "date": "2018-08-22",
+  "tags": [
+    "spring",
+    "websockets",
+    "documentation"
+  ]
+}
+---
+
+Recently I had the desire to get some experience with WebSockets. I have always been intrigued by the protocol but never really had much of a use for it. I finally got the opportunity to try it out as a question came up with one of our production services that uses WebSockets needing to scale horizontally. This service uses the Spring framework's provided STOMP WebSocket implemetation. The process of getting it to work was fairly straight forward (hat tip to RabbitMQ and Spring for making the code straightforward) but at the same time documentation is lacking. All of the demos and examples I have seen are quite surface level and didn't quite go deep enough to really get a handle. This being the case, I decided to write this blog post to document the things that I learned and hopefully help those following in my footsteps in the future. 
+
+I started with basically the goto demo of Spring WebSockets right from their [website](https://spring.io/guides/gs/messaging-stomp-websocket/). This got my up and running pretty quickly and was cool to have something working right off the bat. The next feature I wanted to add was the ability to direct messages to a particular feature. This was the first place where confusion started for me. Thankfully I was able to avoid a common place where people trip up in that there is fairly good documentation on how to use `SimpMessagingTemplate.convertAndSendToUser` however they don't describe how to set the user for the session. Seems like you need to find some authentication system however how does authentication work in WebSockets. Oh good a [section](https://docs.spring.io/spring/docs/5.0.0.BUILD-SNAPSHOT/spring-framework-reference/html/websocket.html#websocket-stomp-authentication) in the documetation. Turns out all it says is, "We just use the `HttpServletRequest#getUserPrincipal()`? Well buried a little deeper I find a nugget of explaining how to inject some code into every request that allows this setting. Turns out there was some deprecated code in the example however once I figured out what was required to avoid the deprecation I was able to get the authentication working with a [simple test header](https://github.com/kylec32/websocket-playground/blob/master/src/main/java/tk/kylecarter/websockets/WebSocketConfig.java#L62). At that point I had my broadcasts working and direct messages working on a different destination ('user').
+
+OK now for the real work. To get this working across different JVMs. I knew that I had to move beyond using the default `simpleBroker` and it looked like there were two options mentioned. ActiveMQ and RabbitMQ. For the mere fact that I knew a little bit more about RabbitMQ so that's the one I chose. Looking through the linked documentation it appeared that I had to add a plugin. Turns out that was super simple. A two line [Docker file](https://github.com/kylec32/websocket-playground/blob/master/Dockerfile) and we were off to the races. At this point I just spun up the broker with the following command: `docker run -d --hostname my-rabbit --name websocket-queue -p 8090:15672 -p 61613:61613 rabbitstomp:latest` this allows me to access the management console via `localhost:8090` and access the STOMP plugin via `localhost:61613`. 
+
+Next we have to switch out the simple broker in Spring for the RabbitMQ backend. There were some gotcha in here. The first being that `/` is not allowed in the path so we simply add `registry.setPathMatcher(new AntPathMatcher("."));` and now the separation of elements is `.`. The next gotcha I came up against was ActiveMQ only allows certain prefixes for topics `user` was not one of them. The error message as actaully pretty clear for this but I was initially not reading it correctly. I was sure it was due to the dynamic ending to the user subscription name. Turns out that was not the problem. Moving the user subscriptions under an allowed prefix solved this. Finally the last problem to solve was share the user subscriptions between servers. to do this we use `setUserDestinationBroadcast("/topic/logbook-unresolved-user")` and `setUserRegistryBroadcast("/topic/logbook-user-registry")`.
+
+After all these changes everything worked wonderfully. Find all the code [here](https://github.com/kylec32/websocket-playground).
