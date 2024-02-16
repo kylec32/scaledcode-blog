@@ -52,7 +52,8 @@ private FieldType getField() {
   FieldType result = field;
   if (result == null) {
     synchronized(this) {
-      if (field == null) {
+      result = field;
+      if (result == null) {
         field = result = computeFieldValue();
       }
     }
