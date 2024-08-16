@@ -23,3 +23,13 @@ NTP has gone through many revisions with its initial revision documented in [198
 NTP (as well as SNTP which is actually more what is the focus on the article) operates over UDP with the server listening on port 123. Being UDP is doesn't handle retry or retransmissions automatically neither does it need to. NTP is largely a stateless protocol on the client side (and is completely stateless when using SNTP) and the servers need no state about the clients other than what is sent in the request. NTP timestamps are represented as 64 bit fixed point number in seconds since 1/1/1900 0:00:00 UTC. The integer part is the first 32 bits and the fractional part is the latter 32 bits. The lower-order fractional bits give an increment of 0.2 nanoseconds. When a timestamp is not available like right after startup all the bits are marked as 0 to indicate it is an invalid timestamp. In addition to the timestamp data bits there are a couple other data fields used in the protocol.
 
 _Leap Indicator_
+
+This is a two-bit field indicating whether there is an impending additional second or removal of a second to compensate for the a mismatch with clocks and the earth's rotation. The indicator can have the following values:
+
+* `0` = No Warning
+* `1` = Last minute of the day has 61 seconds
+* `2` = Last minute of the day has 59 seconds
+* `3` = Clock is unsynchronized (the time should not be used)
+
+_Status_ 
+
