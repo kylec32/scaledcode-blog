@@ -31,5 +31,74 @@ This is a two-bit field indicating whether there is an impending additional seco
 * `2` = Last minute of the day has 59 seconds
 * `3` = Clock is unsynchronized (the time should not be used)
 
-_Status_ 
+_Version Number_
+
+A 3-bit integer indicating the NTP version in use, currently the modern standard is version 4.
+
+_Mode_
+
+A 3-bit integer indicating the mode of NTP that it is running in. The following modes are defined.
+
+* `0` - Reserved
+* `1` - Symmetric Active
+* `2` - Symmetric Passive
+* `3` - Client
+* `4` - Server
+* `5` - Broadcast
+* `6` - NTP control message
+* `7` - Reserved for private use.
+
+_Stratum_ 
+
+An 8-bit integer indicating how many layers down from a primary time source the responding server is. The following defined stratums exist in the specification.
+
+ * `0` - Unspecified or Invalid
+ * `1` - Primary server (e.g equipped with GPS or atomic clock)
+ * `2-15` - Secondary server
+ * `16` - Unsynchronized
+ * `17-255` - Reserved
+
+ _Poll_
+
+ An 8-bit signed integer representing the maximum interval between successive messages in log2 seconds.
+
+ _Precision_
+
+ An 8-bit singed integrer representing the precision of the clock in log2 seconds. For instance, a value of -18 corresponds to a precision of about one milliseond.
+
+ _Reference ID_
+
+ A 32-bit code identifying the particular server, refence clock, or `kiss-code` depending on the state of the stratum field in the packet. For stratum value of 0 this value is the `kiss code` for the packet, these will be discussed further. For stratum values of 1 this is a four-octect, left-justified, zero-padded ASCII string assigned to the refence clock. IANA maintains the official list of what values are valid here but any value that starts with an `X` is reserved for unregistered experimentation. For stratum 2 and above (secondary servers and clients) this value is the refence identifier of the server which it received its information from.
+
+ _Reference Timestamp_
+
+ Time when the system clock was last set or corrected, in NTP timestamp format.
+
+ _Origin Timestamp_
+
+ Time at the client when the request departed the server, in NTP timestamp format.
+
+ _Receive Timestamp_
+
+ Time at the server when the request arrived from the client, in NTP timestamp format.
+
+ _Transmit Timestamp_ Time at the server when the response left for the client, in NTP timestamp format.
+
+_Note_
+
+There is no `Destination Timestamp` field in the header as that is calculated and stored in the client upon receipt of the packet at the earliest available moment.
+
+### Kiss-o'-Death Packets
+
+When the _Stratum_ field is 0 that indicates and error condition and in this case the _Reference ID_ field is used to convey the reason for the the kiss-o'-death (KoD) packet and these values are called `kiss codes`. These different kiss code can provide useful information to intelligent client so they can take the appropriate response. The codes are encoded in four-character ASCII strings that are left justified. There are various kiss codes and a full list of them can be found in the specification but somf of particular use are the following:
+
+* `DENY` and `RSTR` - Indicate the client must disconnect from that server and stop sending packets to it.
+* `RATE` - Indicated the client must immediately reduce its polling interval and continue to reduce as it receives more and more `RATE` kiss codes.
+* If the kiss code starts with an `X` that means the kiss code is experimental and must be ignored if not recognized.
+
+### Walkthrough
+
+{% image "https://www.plantuml.com/plantuml/png/hP6zRiCm38HtFWMHlKD-9Wz5WEv5q6JCGjXiGy2Y3UhYv--FKLL6WmvjDv8wwhkJzXaIkAQUBYgT1Z-U3do8eTMSYKO9M6kZE7ZrVlBGcpfMB9aTuznzLnqr9erFrTmHIGkR15fjbehlxh-a3GzXB-OCIveXQMmOwxE7jcgJLkEp8yHpCbH3yW7AlJwZuQCwMC2dTOKlbahrIpnZyuE3jqikQFXfNki-R6oMp9B_xqni5zGIV4kTteXUoFzkuxPwL__Auabsj5Vlhgb_1G00", "Sequence Diagram of Simple NTP Interactions" %}
+
+
 
