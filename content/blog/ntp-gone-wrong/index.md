@@ -7,20 +7,20 @@
   "tags": [
     "software development",
     "time",
-    "Postmortem"
-  ],
-  "draft":true
+    "Postmortem",
+    "debugging"
+  ]
 }
 
 ---
 
-In the complex software development environment that we are in there are countless layers of abstraction that we build upon. This is part of what enables development to be so productive in this day and age. This most often is useful. For the average developer to not have to worry about CPU registers, page size, TCP routes, etc allows focusing on what makes the software you build different and useful. This is a good thing. That said, when abstractions we build upon don't meet the expectations that we have it can have significant impacts. One such expectation that we often expect to be there is having an accurate clock on the machine. While we shouldn't expect all clocks within a distributed system to have identical clocks (although some modern advancements are making [this closer to a reality](https://aws.amazon.com/blogs/compute/its-about-time-microsecond-accurate-clocks-on-amazon-ec2-instances/)) we do expect the clocks on our machines to be reasonably accurate. This is thanks to protocols such as NTP (Network Time Protocol) which is one of the earlier protocols in computing. 
+In the complex software development environment that we are in there are countless layers of abstraction that we build upon. This is part of what enables development to be so productive in this day and age. Most of the time this is helpful. For the average developer to not have to worry about CPU registers, page size, TCP routes, etc allows focusing on what makes the software you build different and useful. This is a good thing. That said, when abstractions we build upon don't meet the expectations that we have it can have significant impacts. One such expectation that we often expect to be there is having an accurate clock on the machine. While we shouldn't expect all clocks within a distributed system to have identical clocks (although some modern advancements are making [this closer to a reality](https://aws.amazon.com/blogs/compute/its-about-time-microsecond-accurate-clocks-on-amazon-ec2-instances/)) we do expect the clocks on our machines to be reasonably accurate. This is thanks to protocols such as NTP (Network Time Protocol) which is one of the earlier protocols in computing. 
 
 ### How NTP Works
 
 NTP has gone through many revisions throughout its life with its initial revision documented in [1985](https://datatracker.ietf.org/doc/html/rfc958) and its revision at the time of writing of [version 4](https://datatracker.ietf.org/doc/html/rfc5905) published in 2010. The work in NTP has not stopped either. Discussions have happened referring to version 5 and other time synchronization protocols also exist today. On top of that, there is also SNTP (Simple Network Time Protocol) which simplifies the protocol by making a stateless version that is compatible with NTP servers. No matter the version of NTP the core concepts are the same so let's cover them at a high level.
 
-NTP (as well as SNTP which is more what is the focus of this article) operates over UDP with the server listening on port 123. Being UDP it doesn't handle retry or retransmissions automatically nor does it need to. NTP is largely a stateless protocol on the client side (and is completely stateless when using SNTP) and the servers need no state about the clients other than what is sent in the request. NTP timestamps are 64-bit fixed point numbers in seconds since 1/1/1900 0:00:00 UTC. The integer part is the first 32 bits and the fractional part is the latter 32 bits. The lower-order fractional bits give an increment of 0.2 nanoseconds. When a timestamp is not available like right after startup all the bits are marked as 0 to indicate it is an invalid timestamp. In addition to the timestamp data bits, there are a couple of other data fields used in the protocol.
+NTP (as well as SNTP which is more what is the focus of this article) operates over UDP with the server listening on port 123. Because it utilizes UDP it doesn't handle retry or retransmissions automatically nor does it need to. NTP is largely a stateless protocol on the client side (and is completely stateless when using SNTP) and the servers need no state about the clients other than what is sent in the request. NTP timestamps are 64-bit fixed point numbers in seconds since 1/1/1900 0:00:00 UTC. The integer part is the first 32 bits and the fractional part is the latter 32 bits. The lower-order fractional bits give an increment of 0.2 nanoseconds. When a timestamp is not available like right after startup all the bits are marked as 0 to indicate it is an invalid timestamp. In addition to the timestamp data bits, there are a couple of other data fields used in the protocol.
 
 _Leap Indicator_
 
@@ -50,7 +50,7 @@ A 3-bit integer to indicate the mode of NTP that it is running in. The following
 
 _Stratum_ 
 
-An 8-bit integer indicates how many layers down from a primary time source the responding server is. The following defined stratum exist in the specification.
+An 8-bit integer indicates how many layers down from a primary time source the responding server is. The following defined stratum exists in the specification.
 
  * `0` - Unspecified or Invalid
  * `1` - Primary server (e.g equipped with GPS or atomic clock)
@@ -64,11 +64,11 @@ An 8-bit integer indicates how many layers down from a primary time source the r
 
  _Precision_
 
- An 8-bit signed integrer representing the precision of the clock in log2 seconds. For instance, a value of -18 corresponds to a precision of about one millisecond.
+ An 8-bit signed integer representing the precision of the clock in log2 seconds. For instance, a value of -18 corresponds to a precision of about one millisecond.
 
  _Reference ID_
 
- A 32-bit code detailing the particular server, reference clock, or `kiss code` depending on the state of the stratum field in the packet. For a stratum value of 0, this value is the `kiss code` for the packet, these will be discussed further. For stratum values of 1, this is a four-octet, left-justified, zero-padded ASCII string assigned to the reference clock. IANA maintains the official list of what values are valid here but any value that starts with an `X` is reserved for unregistered experimentation. For stratum 2 and above (secondary servers and clients) this value is the reference identifier of the server which it received its information from.
+ A 32-bit code detailing the particular server, reference clock, or `kiss code` depending on the state of the stratum field in the packet. For a stratum value of 0, this value is the `kiss code` for the packet, these will be discussed further below. For stratum values of 1, this is a four-octet, left-justified, zero-padded ASCII string assigned to the reference clock. IANA maintains the official list of what values are valid here but any value that starts with an `X` is reserved for unregistered experimentation. For stratum 2 and above (secondary servers and clients) this value is the reference identifier of the server which it received its information from.
 
  _Reference Timestamp_
 
@@ -82,7 +82,9 @@ An 8-bit integer indicates how many layers down from a primary time source the r
 
  Time at the server when the request arrived from the client, in NTP timestamp format.
 
- _Transmit Timestamp_ Time at the server when the response was sent to the client, in NTP timestamp format.
+ _Transmit Timestamp_
+ 
+ Time at the server when the response was sent to the client, in NTP timestamp format.
 
 _Note_
 
@@ -90,10 +92,10 @@ There is no `Destination Timestamp` field in the header as that is calculated an
 
 ### Kiss-o'-Death Packets
 
-When the _Stratum_ field is 0 that indicates an error condition and in this case, the _Reference ID_ field is used to convey the reason for the kiss-o'-death (KoD) packet, these values are called `kiss codes`. These different kiss codes can provide useful information to an intelligent client so they can take the appropriate response. The codes are encoded in four-character ASCII strings that are left justified. There are various kiss codes and a full list of them can be found in the specification but some particularly useful are the following:
+When the _Stratum_ field is 0 that indicates an error condition and the _Reference ID_ field is used to convey the reason for the kiss-o'-death (KoD) packet, these values are called `kiss codes`. These different kiss codes can provide useful information to an intelligent client so they can take the appropriate response. The codes are encoded in four-character ASCII strings that are left justified. There are various kiss codes and a full list of them can be found in the specification but some particularly useful kiss codes are the following:
 
 * `DENY` and `RSTR` - Indicate the client must disconnect from that server and stop sending packets to it.
-* `RATE` - Indicates the client must immediately reduce its polling interval and continue to reduce as it receives more and more `RATE` kiss codes.
+* `RATE` - Indicates the client must immediately reduce its polling interval and continue to reduce the interval as the client receives more and more `RATE` kiss codes.
 * If the kiss code starts with an `X` that means the kiss code is experimental and must be ignored if not recognized.
 
 ### Walkthrough
@@ -132,7 +134,7 @@ Still confused about what could be happening, and especially confused that we we
 
 While handling the immediate problems one member of the team extracted the custom NTP client code from the project and modified it to continuously poll different NTP servers that were routable behind `pool.ntp.org` (remember this is a virtual cluster where anyone can host a server) so there were over 4,500 different servers that could be responding. Then looking at the results he would output any that gave confusing values with huge offsets. 
 
-Hours after starting this process of exhaustively testing each possible backend server we started to get responses with huge offsets being reported. But why? We then repeatedly queried that exact server with a command line NTP client (sntp -d <ip address>) to gain more information and this is what we saw:
+Hours after starting this process of exhaustively testing each possible backend server we started to get responses with huge offsets being reported. But why? We then repeatedly queried that exact server with a command line NTP client (sntp -d ip_address) to gain more information and this is what we saw:
 
 ```
 sntp: Exchange failed: Kiss of death
@@ -154,7 +156,7 @@ sntp_exchange {
          delay: 0000000000000000.10E1501100000000 (0.065938000)
           mean: 0000000000000000.0000000000000000 (0.000000000)
          error: 0000000000000000.0000000000000000 (0.000000000)
-          addr: <ip address>
+          addr: ip address
 }
 ```
 
@@ -166,10 +168,12 @@ With this knowledge in hand, we had an understanding of what the problem was and
 
 #### Why did this start happening all of a sudden?
 
-We did find a small amount of evidence that supported that this issue had occurred in very isolated cases in the past but when the incident came up it was happening all over so the reasonable question was asked, why now? Unfortunately, we don't know the answer. Potentially there was a new group of servers brought online to pool.ntp.org that couldn't handle the load they were given and so they started responding with RATE limit errors. Maybe some new or existing time servers decided to chaos test everyone that used them to make sure everyone's client implementation could handle the legitimate non-happy path responses (we couldn't). We still weren't sure but we did learn that it wasn't just our group that was affected but there became more and more reports of this issue happening with this open source project. I am proud of the team I worked with and that we were able to detect, diagnose, and recover from the issue before many in the community had even found out it was a problem and we were able to offer a warning as well as a suggested way forward to the community at large.
+We did find a small amount of evidence that supported that this issue had occurred in very isolated cases in the past but when the incident came up it was happening all over so the reasonable question was asked, why now? Unfortunately, we don't know the answer. Potentially there was a new group of servers brought online to pool.ntp.org that couldn't handle the load they were given and so they started responding with RATE limit errors. Maybe some new or existing time servers decided to chaos test everyone that used them to make sure everyone's client implementation could handle the legitimate non-happy path responses (we couldn't). We still weren't sure but we did learn that it wasn't just our group that was affected but there later were more and more reports of this issue happening with this open source project. I am proud of the team I worked with and that we were able to detect, diagnose, and recover from the issue before many in the community had even found out it was a problem and we were able to offer a warning as well as a suggested way forward to the community at large.
 
 ### Lessons learned
 
-It is easy to take advantage of the products and technologies you build your solutions on top of. That is OK most of the time honestly, if we had to reimplement the whole stack from bottom to top each time we took on a project we would never get anywhere. Even so, understanding [how the system works](https://blog.scaledcode.com/blog/mechanical-sympathy-in-software-dev/) and where it can break is always worth its time in my opinion. We re-learned that every line of code is a liability. If you don't think some code is providing value, remove it, at best it was causing no benefit and no issues but at worst it is providing no positive impact but was providing a negative impact. This incident was also a great exercise of the various debugging techniques we have available to us not all issues can be debugged using the same technique so having several methods at your disposal is extremely helpful.
+It is easy to take advantage of the products and technologies you build your solutions on top of. That is OK most of the time, if we had to reimplement the whole stack from top to bottom each time we took on a project we would never get anywhere. Even so, understanding [how the system works](https://blog.scaledcode.com/blog/mechanical-sympathy-in-software-dev/) and where it can break is always worth its time in my opinion. We re-learned that every line of code is a liability. If you don't think some code is providing value, remove it, at best it was causing no benefit and no issues but at worst it is providing no positive impact but was providing a negative impact. This incident was also a great exercise of the various debugging techniques we have available to us not all issues can be debugged using the same technique so having several methods at your disposal is extremely helpful.
 
+### Additional Resources
 
+To further test this issue I wrote an extremely simple NTP server that always responds with a rate limit response. The code for that NTP server is hosted [here.](https://github.com/kylec32/RateLimitedNtp)
