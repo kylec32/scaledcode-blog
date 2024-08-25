@@ -2,7 +2,7 @@
 {
   "title": "When NTP Interactions Go Wrong",
   "description": "A walkthrough of an issue with interactions with NTP that lead to vastly incorrect dates",
-  "date": "2024-07-10",
+  "date": "2024-08-24",
   "hero_image": "./ConfusedClock.png",
   "tags": [
     "software development",
