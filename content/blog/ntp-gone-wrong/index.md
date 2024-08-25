@@ -26,10 +26,10 @@ _Leap Indicator_
 
 This is a two-bit field indicating whether there is an impending additional second or removal of a second to compensate for the mismatch between clocks and the earth's rotation. The indicator can have the following values:
 
-* `0` = No Warning
-* `1` = Last minute of the day has 61 seconds
-* `2` = Last minute of the day has 59 seconds
-* `3` = Clock is unsynchronized (the time should not be used)
+* `0` - No Warning
+* `1` - Last minute of the day has 61 seconds
+* `2` - Last minute of the day has 59 seconds
+* `3` - Clock is unsynchronized (the time should not be used)
 
 _Version Number_
 
