@@ -64,7 +64,7 @@ An 8-bit integer indicates how many layers down from a primary time source the r
 
  _Precision_
 
- An 8-bit signed integer representing the precision of the clock in log2 seconds. For instance, a value of -18 corresponds to a precision of about one millisecond.
+ An 8-bit signed integer representing the precision of the clock in log2 seconds. For instance, a value of -18 corresponds to a precision of about one microsecond.
 
  _Reference ID_
 
